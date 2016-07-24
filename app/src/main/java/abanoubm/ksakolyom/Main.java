@@ -1,4 +1,4 @@
-package abanoubm.kstkolyom;
+package abanoubm.ksakolyom;
 
 import android.app.Activity;
 import android.content.Intent;

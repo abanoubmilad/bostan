@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="abanoubm.kstkolyom">
+    package="abanoubm.ksakolyom">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -13,7 +13,7 @@
 
 
         <activity
-            android:name="abanoubm.kstkolyom.Splash"
+            android:name=".Splash"
             android:theme="@style/Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,10 +21,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="abanoubm.kstkolyom.Main" />
-        <activity android:name="abanoubm.kstkolyom.DisplayStories" />
-        <activity android:name="abanoubm.kstkolyom.DisplayStory" />
-        <activity android:name="abanoubm.kstkolyom.Search" />
+        <activity android:name=".Main" />
+        <activity android:name=".DisplayStories" />
+        <activity android:name=".DisplayStory" />
+        <activity android:name=".Search" />
     </application>
 
 </manifest>

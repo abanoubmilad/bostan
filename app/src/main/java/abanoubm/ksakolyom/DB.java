@@ -1,4 +1,4 @@
-package abanoubm.kstkolyom;
+package abanoubm.ksakolyom;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -9,10 +9,10 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
 
 public class DB extends SQLiteOpenHelper {
-    private static String DB_NAME = "kstkolyom_db";
+    private static String DB_NAME = "ksakolyom_db";
     public static final int DB_VERSION = 1;
 
-    public static final String TB_STORY = "kstkolyom_tb",
+    public static final String TB_STORY = "ksakolyom_tb",
             STORY_CONTENT = "story_con",
             STORY_PHOTO = "story_ph",
             STORY_DATE = "story_date",
@@ -45,14 +45,17 @@ public class DB extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String sql = "create table " + TB_STORY + " ( " +
-                STORY_ID + "  text primary key, " +
+                STORY_ID + "  text, " +
                 STORY_CONTENT + "  text, " +
                 STORY_READ + "  character(1) default '0', " +
-                STORY_CONTENT + "  text, " +
                 STORY_PHOTO + " text default '', " +
                 STORY_DATE + " character(10), " +
-                "CREATE INDEX ON " + TB_STORY + "(" + STORY_DATE + "))";
+                "primary key (" + STORY_ID + "," + STORY_DATE + "))";
         db.execSQL(sql);
+//
+//        sql = "create primary ON " + TB_STORY + " (" + STORY_ID + "," + STORY_DATE + ")";
+//        db.execSQL(sql);
+
 
     }
 

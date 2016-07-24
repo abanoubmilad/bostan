@@ -1,4 +1,4 @@
-package abanoubm.kstkolyom;
+package abanoubm.ksakolyom;
 
 public class Story {
     private String id;

@@ -3,7 +3,7 @@
 
     <string name="app_name">قصة كل يوم</string>
     <string name="btn.search">بحث</string>
-    <string name="copyright">kst kolyom 1.0 ©%1$s\nAbanoub Milad Hanna\nabanoubcs@gmail.com</string>
+    <string name="copyright">ksa kolyom 1.0 ©%1$s\nAbanoub Milad Hanna\nabanoubcs@gmail.com</string>
     <string name="subhead_display_stories">القصص</string>
     <string name="subhead_search">البحث فى القصص</string>
     <string name="msg_no_stories">لا توجد قصص تأكد من اتصالك بالانترنت</string>
