@@ -14,10 +14,10 @@ import com.squareup.picasso.Picasso;
 
 public class FragmentDisplayStory extends Fragment {
 
-    private String date;
+    private String id;
     private Story mStory = null;
     private boolean dualMode;
-    private static final String ARG_DATE = "date";
+    private static final String ARG_ID= "id";
     private static final String ARG_DUAL_MODE = "dual";
     private boolean isFav = false;
 
@@ -31,7 +31,7 @@ public class FragmentDisplayStory extends Fragment {
         super.onCreate(savedInstanceState);
         Bundle arguments = getArguments();
         if (arguments != null) {
-            date = arguments.getString(ARG_DATE);
+            id = arguments.getString(ARG_ID);
             dualMode = arguments.getBoolean(ARG_DUAL_MODE);
         }
 
@@ -69,7 +69,7 @@ public class FragmentDisplayStory extends Fragment {
         protected Void doInBackground(Void... params) {
             if (mDB == null)
                 mDB = DB.getInstant(getActivity());
-            mStory = mDB.getStory(date);
+            mStory = mDB.getStory(id);
             if (mStory.getRead().equals("0"))
                 mDB.markAsRead(mStory.getId());
             return null;
@@ -84,8 +84,9 @@ public class FragmentDisplayStory extends Fragment {
             Picasso.with(getContext()).load(mStory.getPhoto()).placeholder(R.mipmap.ic_def).into(photo);
 
             if (mStory.getRead().equals("2")) {
-                fav.setBackgroundResource(R.mipmap.ic_fav);
+                fav.setImageResource(R.mipmap.ic_fav);
                 isFav = true;
+                check.setVisibility(View.VISIBLE);
             } else if (mStory.getRead().equals("1")) {
                 check.setVisibility(View.VISIBLE);
             }
@@ -114,11 +115,11 @@ public class FragmentDisplayStory extends Fragment {
         @Override
         protected void onPostExecute(Void story) {
             if (isFav) {
-                fav.setBackgroundResource(R.mipmap.ic_fav);
+                fav.setImageResource(R.mipmap.ic_fav);
                 Toast.makeText(getActivity(),
                         R.string.msg_added_fav, Toast.LENGTH_SHORT).show();
             } else
-                fav.setBackgroundResource(R.mipmap.ic_add);
+                fav.setImageResource(R.mipmap.ic_add);
 
             fav.setClickable(true);
 

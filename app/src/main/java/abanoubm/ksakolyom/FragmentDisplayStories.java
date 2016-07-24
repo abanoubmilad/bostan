@@ -41,7 +41,7 @@ public class FragmentDisplayStories extends Fragment {
             if (mDB == null)
                 mDB = DB.getInstant(getActivity());
 
-            if (displayType == 0 || Utility.isHoldingData(getContext()))
+            if (Utility.isHoldingData(getContext()))
                 return mDB.getStories(displayType);
 
             ArrayList<Story> stories = Utility.getPagingStories(getContext());

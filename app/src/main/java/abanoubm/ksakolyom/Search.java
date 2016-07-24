@@ -55,7 +55,7 @@ public class Search extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_search);
-        ((TextView) findViewById(R.id.subhead)).setText(R.string.subhead_search);
+        ((TextView) findViewById(R.id.subhead)).setText(getResources().getString(R.string.subhead_search));
 
         input = (EditText) findViewById(R.id.input);
         ListView lv = (ListView) findViewById(R.id.list);
