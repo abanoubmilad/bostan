@@ -8,6 +8,7 @@
     <string name="subhead_search">البحث فى القصص</string>
     <string name="msg_no_stories">لا توجد قصص تأكد من اتصالك بالانترنت</string>
     <string name="msg_no_results">لا توجد نتائج بحث</string>
+    <string name="msg_added_fav">تم الاضافة الى القصص المُفضلة</string>
 
     <string-array name="main_menu">
         <item>قصة اليوم</item>
@@ -17,6 +18,12 @@
         <item>تابعنا على فيس بوك</item>
         <item>تواصل مع المُطور</item>
         <item>تقييم قصة كل يوم</item>
+    </string-array>
+    <string-array name="display_menu">
+        <item>الكل</item>
+        <item>قصص مُفضلة</item>
+        <item>قصص لم تُقرأ</item>
+        <item>قصص تم قرائتها</item>
     </string-array>
 
     <string-array name="main_icons" translatable="false">

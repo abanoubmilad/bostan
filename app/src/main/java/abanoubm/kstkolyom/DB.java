@@ -87,10 +87,17 @@ public class DB extends SQLiteOpenHelper {
         writableDB.endTransaction();
     }
 
-    public ArrayList<Story> getStories() {
+    public ArrayList<Story> getStories(int displayType) {
+
+        String selection = displayType == 0 ? null :
+                displayType == 1 ? STORY_READ + "= '2'" :
+                        displayType == 2 ? STORY_READ + "= '0'" :
+                                STORY_READ + "!= '0'";
+
         Cursor c = readableDB.query(TB_STORY,
                 new String[]{STORY_ID, STORY_READ, STORY_PHOTO, STORY_CONTENT, STORY_DATE},
-                null, null, null, null, STORY_DATE + " DESC", null);
+                selection, null, null, null, STORY_DATE + " DESC", null);
+
         ArrayList<Story> result = new ArrayList<>(c.getCount());
 
         if (c.moveToFirst()) {
