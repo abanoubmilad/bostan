@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">قصة كل يوم</string>
+    <string name="btn.search">بحث</string>
+    <string name="copyright">kst kolyom 1.0 ©%1$s\nAbanoub Milad Hanna\nabanoubcs@gmail.com</string>
+    <string name="subhead_display_stories">القصص</string>
+    <string name="subhead_search">البحث فى القصص</string>
+    <string name="msg_no_stories">لا توجد قصص تأكد من اتصالك بالانترنت</string>
+    <string name="msg_no_results">لا توجد نتائج بحث</string>
+
+    <string-array name="main_menu">
+        <item>قصة اليوم</item>
+        <item>قصص</item>
+        <item>بحث فى القصص</item>
+        <item>الابلاغ عن مشكلة / اقتراحات</item>
+        <item>تابعنا على فيس بوك</item>
+        <item>تواصل مع المُطور</item>
+        <item>تقييم قصة كل يوم</item>
+    </string-array>
+
+    <string-array name="main_icons" translatable="false">
+        <item>@mipmap/ic_like</item>
+        <item>@mipmap/ic_like</item>
+        <item>@mipmap/ic_like</item>
+        <item>@mipmap/ic_like</item>
+        <item>@mipmap/ic_report</item>
+        <item>@mipmap/ic_contact</item>
+        <item>@mipmap/ic_rate</item>
+    </string-array>
+</resources>
