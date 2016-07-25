@@ -6,13 +6,17 @@
     <string name="copyright">ksa kolyom 1.0 ©%1$s\nAbanoub Milad Hanna\nabanoubcs@gmail.com</string>
     <string name="subhead_display_stories">القصص</string>
     <string name="subhead_search">البحث فى القصص</string>
-    <string name="msg_no_stories">لا توجد قصص تأكد من اتصالك بالانترنت</string>
+    <string name="msg_no_stories">لا توجد قصص </string>
+    <string name="msg_no_internet">تأكد من اتصالك بالانترنت</string>
     <string name="msg_no_results">لا توجد نتائج بحث</string>
     <string name="msg_added_fav">تم الاضافة الى القصص المُفضلة</string>
 
     <string-array name="main_menu">
         <item>قصة اليوم</item>
-        <item>قصص</item>
+        <item>كل القصص</item>
+        <item>قصص مُفضلة</item>
+        <item>قصص لم تُقرأ</item>
+        <item>قصص تم قرائتها</item>
         <item>بحث فى القصص</item>
         <item>الابلاغ عن مشكلة / اقتراحات</item>
         <item>تابعنا على فيس بوك</item>
@@ -21,14 +25,15 @@
     </string-array>
     <string-array name="display_menu">
         <item>الكل</item>
-        <item>قصص مُفضلة</item>
-        <item>قصص لم تُقرأ</item>
-        <item>قصص تم قرائتها</item>
+
     </string-array>
 
     <string-array name="main_icons" translatable="false">
         <item>@mipmap/ic_like</item>
-        <item>@mipmap/ic_like</item>
+        <item>@mipmap/ic_fav</item>
+        <item>@mipmap/ic_fav</item>
+        <item>@mipmap/ic_fav</item>
+        <item>@mipmap/ic_fav</item>
         <item>@mipmap/ic_like</item>
         <item>@mipmap/ic_like</item>
         <item>@mipmap/ic_report</item>

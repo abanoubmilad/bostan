@@ -10,6 +10,7 @@ public class DisplayStories extends AppCompatActivity implements CallBack {
     private boolean dualMode;
     private static final String ARG_ID = "id";
     private static final String ARG_DUAL_MODE = "dual";
+    private static final String ARG_SELECTION = "sel";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,11 +22,26 @@ public class DisplayStories extends AppCompatActivity implements CallBack {
         if (savedInstanceState == null) {
             Bundle args = new Bundle();
             args.putBoolean(ARG_DUAL_MODE, dualMode);
-            FragmentDisplayStories fragment = new FragmentDisplayStories();
-            fragment.setArguments(args);
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.display_stories_fragment, fragment)
-                    .commit();
+
+            int selection = getIntent().getIntExtra(ARG_SELECTION, 0);
+            if (selection == Utility.STORIES_ALL) {
+
+                FragmentDisplayStories fragment = new FragmentDisplayStories();
+                fragment.setArguments(args);
+
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.display_stories_fragment, fragment)
+                        .commit();
+            } else {
+                FragmentDisplaySelection fragment = new FragmentDisplaySelection();
+                args.putInt(ARG_SELECTION, selection);
+                fragment.setArguments(args);
+
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.display_stories_fragment, fragment)
+                        .commit();
+            }
+
         }
 
 

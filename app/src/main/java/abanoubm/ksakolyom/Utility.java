@@ -11,6 +11,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class Utility {
+    public final static int STORIES_ALL = 0, STORIES_FAV = 1, STORIES_READ = 2, STORIES_UN_READ = 3;
+
     private final static String PAGING_NEXT = "next", PAGING_PREVIOUS = "previous";
 
     public static ArrayList<Story> parseStories(String response, Context context) {
@@ -54,7 +56,7 @@ public class Utility {
     }
 
     public static ArrayList<Story> parseStories(String response, Context context, String pagingType) {
-        Log.i("respone", response);
+        //Log.i("respone", response);
 
         try {
             JSONObject obj = new JSONObject(response);

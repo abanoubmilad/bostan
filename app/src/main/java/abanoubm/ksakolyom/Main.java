@@ -18,6 +18,7 @@ import java.util.Locale;
 
 public class Main extends Activity {
     private MenuItemAdapter mMenuItemAdapter;
+    private static final String ARG_SELECTION = "sel";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,12 +46,21 @@ public class Main extends Activity {
 
                         break;
                     case 1:
-                        startActivity(new Intent(Main.this, DisplayStories.class));
+                        startActivity(new Intent(Main.this, DisplayStories.class).putExtra(ARG_SELECTION, Utility.STORIES_ALL));
                         break;
                     case 2:
-                        startActivity(new Intent(Main.this, Search.class));
+                        startActivity(new Intent(Main.this, DisplayStories.class).putExtra(ARG_SELECTION, Utility.STORIES_FAV));
                         break;
                     case 3:
+                        startActivity(new Intent(Main.this, DisplayStories.class).putExtra(ARG_SELECTION, Utility.STORIES_UN_READ));
+                        break;
+                    case 4:
+                        startActivity(new Intent(Main.this, DisplayStories.class).putExtra(ARG_SELECTION, Utility.STORIES_READ));
+                        break;
+                    case 5:
+                        startActivity(new Intent(Main.this, Search.class));
+                        break;
+                    case 6:
                         try {
                             getPackageManager().getPackageInfo(
                                     "com.facebook.katana", 0);
@@ -63,11 +73,11 @@ public class Main extends Activity {
                                     | Intent.FLAG_ACTIVITY_NEW_TASK));
                         }
                         break;
-                    case 4:
+                    case 7:
                         startActivity(new Intent(Intent.ACTION_VIEW).setData(Uri
                                 .parse("https://drive.google.com/open?id=1GuP-wW_0MVH_HyN7Ypb9djHrfcxVGKbTL_g8C_uRw2M")));
                         break;
-                    case 5:
+                    case 8:
                         try {
                             getPackageManager().getPackageInfo(
                                     "com.facebook.katana", 0);
@@ -80,7 +90,7 @@ public class Main extends Activity {
                                     | Intent.FLAG_ACTIVITY_NEW_TASK));
                         }
                         break;
-                    case 6:
+                    case 9:
                         Uri uri = Uri.parse("market://details?id=" + getPackageName());
                         Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
                         try {

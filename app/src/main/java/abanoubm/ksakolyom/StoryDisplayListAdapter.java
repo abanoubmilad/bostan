@@ -38,11 +38,13 @@ public class StoryDisplayListAdapter extends Adapter<Story> {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        holder.content.setText(story.getContent().substring(0,Math.max(25,story.getContent().indexOf(' ',25))));
+        holder.content.setText(story.getContent().substring(0, Math.max(25, story.getContent().indexOf(' ', 25))));
         holder.date.setText(story.getDate());
 
-        Picasso.with(getContext()).load(story.getPhoto()).placeholder(R.mipmap.ic_def).into(holder.photo);
-
+        if (story.getPhoto().length() > 0)
+            Picasso.with(getContext()).load(story.getPhoto()).placeholder(R.mipmap.ic_def).into(holder.photo);
+        else
+            holder.photo.setImageResource(R.mipmap.ic_def);
 
         if (selected == position)
             holder.root.setBackgroundColor(

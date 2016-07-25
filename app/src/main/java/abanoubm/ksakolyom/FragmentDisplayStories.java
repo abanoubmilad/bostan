@@ -11,10 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -27,9 +25,7 @@ public class FragmentDisplayStories extends Fragment {
     private DB mDB;
     private static final String ARG_DUAL_MODE = "dual";
     private ProgressBar previous, next;
-    private boolean loading_previous = false, loading_next = false, paging_allowed = false;
-
-    private int displayType = 0;
+    private boolean loading_previous = false, loading_next = false;
 
     private class GetAllTask extends AsyncTask<Void, Void, ArrayList<Story>> {
         @Override
@@ -42,7 +38,7 @@ public class FragmentDisplayStories extends Fragment {
                 mDB = DB.getInstant(getActivity());
 
             if (Utility.isHoldingData(getContext()))
-                return mDB.getStories(displayType);
+                return mDB.getStories(Utility.STORIES_ALL);
 
             ArrayList<Story> stories = Utility.getPagingStories(getContext());
             if (stories != null)
@@ -58,7 +54,7 @@ public class FragmentDisplayStories extends Fragment {
                 if (stories.size() == 0) {
                     getActivity().finish();
                     Toast.makeText(getActivity(),
-                            R.string.msg_no_stories, Toast.LENGTH_SHORT).show();
+                            R.string.msg_no_internet, Toast.LENGTH_SHORT).show();
                 } else {
                     if (previousPosition < stories.size())
                         lv.setSelection(previousPosition);
@@ -67,7 +63,6 @@ public class FragmentDisplayStories extends Fragment {
                                 previousPosition, mAdapter.getItemId(previousPosition));
                     }
                 }
-                paging_allowed = displayType == 0;
             }
 
 
@@ -187,8 +182,6 @@ public class FragmentDisplayStories extends Fragment {
 
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                if (!paging_allowed)
-                    return;
                 if (firstVisibleItem + visibleItemCount >= totalItemCount && !loading_next) {
                     loading_next = true;
                     new GetNextPagingTask().execute();
@@ -198,27 +191,6 @@ public class FragmentDisplayStories extends Fragment {
                     new GetPreviousPagingTask().execute();
                     Log.i("previiiiiiiiiiious", "a7eeeeeeeeeeeeeeehfooo2");
                 }
-            }
-        });
-        Spinner spin = (Spinner) root.findViewById(R.id.spin);
-        spin.setAdapter(new ArrayAdapter<>(getActivity(),
-                R.layout.item_string, getResources().getTextArray(R.array.display_menu)));
-
-        spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view,
-                                       int position, long id) {
-                if (displayType != position) {
-                    paging_allowed = paging_allowed && position == 0;
-                    displayType = position;
-                    new GetAllTask().execute();
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
 
