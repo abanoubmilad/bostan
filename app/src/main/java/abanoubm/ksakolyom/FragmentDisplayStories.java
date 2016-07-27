@@ -40,8 +40,8 @@ public class FragmentDisplayStories extends Fragment {
             if (Utility.isHoldingData(getContext()))
                 return mDB.getStories(Utility.STORIES_ALL);
 
-            ArrayList<Story> stories = Utility.getPagingStories(getContext());
-            if (stories != null)
+            ArrayList<Story> stories = null;
+            if (Utility.isNetworkAvailable(getContext()) && (stories = Utility.getPagingStories(getContext())) != null)
                 mDB.addStories(stories);
 
             return stories;
@@ -63,6 +63,9 @@ public class FragmentDisplayStories extends Fragment {
                                 previousPosition, mAdapter.getItemId(previousPosition));
                     }
                 }
+            } else {
+                Toast.makeText(getActivity(),
+                        R.string.msg_no_internet, Toast.LENGTH_SHORT).show();
             }
 
 
@@ -81,8 +84,8 @@ public class FragmentDisplayStories extends Fragment {
             if (mDB == null)
                 mDB = DB.getInstant(getActivity());
 
-            ArrayList<Story> stories = Utility.getPreviousPagingStories(getContext());
-            if (stories != null)
+            ArrayList<Story> stories = null;
+            if (Utility.isNetworkAvailable(getContext()) && (stories = Utility.getPreviousPagingStories(getContext())) != null)
                 mDB.addStories(stories);
 
             return stories;
@@ -93,6 +96,11 @@ public class FragmentDisplayStories extends Fragment {
             if (stories != null) {
                 mAdapter.addAll(stories);
                 loading_previous = false;
+                if (stories.size() == 0) {
+                    Utility.setHavePrevious(getContext(), false);
+                } else {
+                    Utility.setHavePrevious(getContext(), true);
+                }
             }
             previous.setVisibility(View.GONE);
 
@@ -111,8 +119,8 @@ public class FragmentDisplayStories extends Fragment {
             if (mDB == null)
                 mDB = DB.getInstant(getActivity());
 
-            ArrayList<Story> stories = Utility.getNextPagingStories(getContext());
-            if (stories != null)
+            ArrayList<Story> stories = null;
+            if (Utility.isNetworkAvailable(getContext()) && (stories = Utility.getNextPagingStories(getContext())) != null)
                 mDB.addStories(stories);
 
             return stories;
@@ -123,6 +131,10 @@ public class FragmentDisplayStories extends Fragment {
             if (stories != null) {
                 mAdapter.addAll(stories);
                 loading_next = false;
+                if (stories.size() == 0) {
+                    loading_next = true;
+                    Utility.setHaveNext(getContext(), false);
+                }
             }
             next.setVisibility(View.GONE);
 
@@ -182,11 +194,11 @@ public class FragmentDisplayStories extends Fragment {
 
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                if (firstVisibleItem + visibleItemCount >= totalItemCount && !loading_next) {
+                if (firstVisibleItem + visibleItemCount >= totalItemCount && !loading_next && Utility.doesHaveNext(getContext())) {
                     loading_next = true;
                     new GetNextPagingTask().execute();
                     Log.i("nexxxxxxxxxxxxxxxt", "a7eeeeeeeeeeeeeeeeeht777t");
-                } else if (firstVisibleItem == 1 && !loading_previous) {
+                } else if (firstVisibleItem == 1 && !loading_previous && Utility.doesHavePrevious(getContext())) {
                     loading_previous = true;
                     new GetPreviousPagingTask().execute();
                     Log.i("previiiiiiiiiiious", "a7eeeeeeeeeeeeeeehfooo2");
@@ -203,5 +215,6 @@ public class FragmentDisplayStories extends Fragment {
         new GetAllTask().execute();
 
     }
+
 
 }

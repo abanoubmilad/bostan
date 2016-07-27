@@ -37,7 +37,6 @@ public class HTTPClient {
             response = client.newCall(request).execute();
             return response.body().string();
         } catch (Exception e) {
-            e.printStackTrace();
             return null;
         }
 

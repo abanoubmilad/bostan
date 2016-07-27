@@ -92,9 +92,9 @@ public class DB extends SQLiteOpenHelper {
 
     public ArrayList<Story> getStories(int displayType) {
 
-        String selection = displayType == 0 ? null :
-                displayType == 1 ? STORY_READ + "= '2'" :
-                        displayType == 2 ? STORY_READ + "= '0'" :
+        String selection = displayType == Utility.STORIES_ALL ? null :
+                displayType == Utility.STORIES_FAV ? STORY_READ + "= '2'" :
+                        displayType == Utility.STORIES_UN_READ ? STORY_READ + "= '0'" :
                                 STORY_READ + "!= '0'";
 
         Cursor c = readableDB.query(TB_STORY,
