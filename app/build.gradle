@@ -6,16 +6,16 @@ android {
 
     defaultConfig {
         applicationId "abanoubm.ksakolyom"
-        minSdkVersion 8
+        minSdkVersion 7
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
     }
     buildTypes {
         release {
-            debuggable true
-            shrinkResources false
-            minifyEnabled false
+            debuggable false
+            shrinkResources true
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         buildTypes.each {
