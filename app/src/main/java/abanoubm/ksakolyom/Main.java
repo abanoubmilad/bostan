@@ -24,7 +24,7 @@ public class Main extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_main);
-        ((TextView) findViewById(R.id.footer)).setText("kst kolyom " +
+        ((TextView) findViewById(R.id.footer)).setText("ksa kolyom " +
                 BuildConfig.VERSION_NAME + " @" + new SimpleDateFormat(
                 "yyyy", Locale.getDefault())
                 .format(new Date()) + " Abanoub M.");

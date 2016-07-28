@@ -17,52 +17,12 @@ import java.util.Date;
 public class Utility {
     public final static int STORIES_ALL = 4, STORIES_FAV = 2, STORIES_READ = 3, STORIES_UN_READ = 0;
 
-    private final static String PAGING_NEXT = "next", PAGING_PREVIOUS = "previous";
+    public static final String TAG_PAGING = "paging", TAG_NEXT = "next", TAG_PREVIOUS = "previous";
 
-    public static ArrayList<Story> parseStories(String response, Context context) {
-        Log.i("respone", response);
-
-        if (response == null)
-            return null;
-        try {
-            JSONObject obj = new JSONObject(response);
-
-            JSONArray array;
-
-            try {
-                array = obj.getJSONArray("data");
-            } catch (JSONException e) {
-                return new ArrayList<>(0);
-            }
-
-            int length = array.length();
-            ArrayList<Story> stories = new ArrayList<>(length);
-            JSONObject subObj;
-            String picture;
-            for (int i = 0; i < length; i++) {
-                subObj = array.getJSONObject(i);
-                try {
-                    picture = subObj.getString("picture");
-                } catch (JSONException e) {
-                    picture = "";
-                }
-                stories.add(new Story(subObj.getString("id"), picture,
-                        subObj.getString("message"),
-                        subObj.getString("created_time").substring(0, 10)));
-            }
-            obj = obj.getJSONObject("paging");
-
-            updatePagingURL(context, PAGING_PREVIOUS, obj.getString(PAGING_PREVIOUS));
-            updatePagingURL(context, PAGING_NEXT, obj.getString(PAGING_NEXT));
-            return stories;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
+    public static final String TAG_LAST = "last";
 
     public static ArrayList<Story> parseStories(String response, Context context, String pagingType) {
-        //Log.i("respone", response);
+        Log.i("response", response);
         if (response == null)
             return null;
 
@@ -71,11 +31,8 @@ public class Utility {
 
             JSONArray array;
 
-            try {
-                array = obj.getJSONArray("data");
-            } catch (JSONException e) {
-                return new ArrayList<>(0);
-            }
+            array = obj.getJSONArray("data");
+
 
             int length = array.length();
             ArrayList<Story> stories = new ArrayList<>(length);
@@ -93,8 +50,32 @@ public class Utility {
                         subObj.getString("created_time").substring(0, 10)));
             }
 
-            obj = obj.getJSONObject("paging");
-            updatePagingURL(context, pagingType, obj.getString(pagingType));
+            if (length != 0) {
+                obj = obj.getJSONObject("paging");
+
+                if (pagingType == null) {
+                    updatePagingURL(context, TAG_PREVIOUS, obj.getString(TAG_PREVIOUS));
+                    updatePagingURL(context, TAG_NEXT, obj.getString(TAG_NEXT));
+                    updateLastPaging(context);
+                } else if (pagingType.equals(TAG_NEXT)) {
+                    updatePagingURL(context, TAG_NEXT, obj.getString(TAG_NEXT));
+                } else {
+                    updatePagingURL(context, TAG_PREVIOUS, obj.getString(TAG_PREVIOUS));
+                    updateLastPaging(context);
+                }
+            } else {
+                if (pagingType == null) {
+                    updatePagingURL(context, TAG_PREVIOUS, "");
+                    updatePagingURL(context, TAG_NEXT, "");
+                    updateLastPaging(context);
+                } else if (pagingType.equals(TAG_NEXT)) {
+                    updatePagingURL(context, TAG_NEXT, "");
+                } else {
+                    updatePagingURL(context, TAG_PREVIOUS, "");
+                    updateLastPaging(context);
+                }
+
+            }
             return stories;
         } catch (Exception e) {
             e.printStackTrace();
@@ -103,64 +84,48 @@ public class Utility {
     }
 
     public static ArrayList<Story> getPagingStories(Context context) {
-        return parseStories(HTTPClient.getStories(), context);
+        return parseStories(HTTPClient.getStories(), context, null);
     }
 
-    public static ArrayList<Story> getNextPagingStories(Context context) {
-        String pagingURL = getPagingURL(context, PAGING_NEXT);
+    public static ArrayList<Story> getPagingStories(Context context, String pagingType) {
+        String pagingURL = getPagingURL(context, pagingType);
         if (pagingURL.length() != 0)
-            return parseStories(HTTPClient.getStories(pagingURL), context, PAGING_NEXT);
-        else
-            return new ArrayList<>(0);
-    }
-
-    public static ArrayList<Story> getPreviousPagingStories(Context context) {
-        String pagingURL = getPagingURL(context, PAGING_PREVIOUS);
-        if (pagingURL.length() != 0)
-            return parseStories(HTTPClient.getStories(pagingURL), context, PAGING_PREVIOUS);
+            return parseStories(HTTPClient.getStories(pagingURL), context, pagingType);
         else
             return new ArrayList<>(0);
     }
 
     public static String getPagingURL(Context context, String pageType) {
-        return context.getSharedPreferences("paging",
+        return context.getSharedPreferences(TAG_PAGING,
                 Context.MODE_PRIVATE).getString(pageType, "");
     }
 
 
-    public static boolean isHoldingData(Context context) {
-        return context.getSharedPreferences("paging",
-                Context.MODE_PRIVATE).getString(PAGING_PREVIOUS, "").length() > 0;
+    public static void updatePagingURL(Context context, String tag, String value) {
+        context.getSharedPreferences(TAG_PAGING,
+                Context.MODE_PRIVATE).edit().putString(tag, value).commit();
     }
 
-    public static void updatePagingURL(Context context, String pageType, String paging) {
-        context.getSharedPreferences("paging",
-                Context.MODE_PRIVATE).edit().putString(pageType, paging).commit();
+    public static void updateLastPaging(Context context) {
+        context.getSharedPreferences(TAG_PAGING,
+                Context.MODE_PRIVATE).edit().putString(TAG_LAST, new SimpleDateFormat("yyyy-MM-dd").format(
+                new Date())).commit();
     }
 
-    public static boolean doesHaveNext(Context context) {
-        return context.getSharedPreferences("paging",
-                Context.MODE_PRIVATE).getBoolean("hasnext", true);
+    public static String getLastPaging(Context context) {
+        return context.getSharedPreferences(TAG_PAGING,
+                Context.MODE_PRIVATE).getString(TAG_LAST, "");
     }
 
-    public static void setHaveNext(Context context, boolean flag) {
-        context.getSharedPreferences("paging",
-                Context.MODE_PRIVATE).edit().putBoolean("hasnext", flag).commit();
-    }
+    public static boolean hasPaging(Context context, String pagingType) {
+        if (pagingType.equals(TAG_PREVIOUS))
+            return getPagingURL(context, TAG_PREVIOUS).length() != 0;
+        else
+            return getPagingURL(context, TAG_NEXT).length() != 0 || new SimpleDateFormat("yyyy-MM-dd").format(
+                    new Date()).compareTo(getLastPaging(context)) == 1;
 
-    public static boolean doesHavePrevious(Context context) {
-        return context.getSharedPreferences("paging",
-                Context.MODE_PRIVATE).getBoolean("hasprevious", false) ||
-                new SimpleDateFormat("yyyy-mm-dd").format(
-                new Date()).compareTo(context.getSharedPreferences("paging",
-                Context.MODE_PRIVATE).getString("lastdate", "")) == 1;
-    }
 
-    public static void setHavePrevious(Context context, boolean flag) {
-        context.getSharedPreferences("paging",
-                Context.MODE_PRIVATE).edit().putBoolean("hasprevious", flag).commit();
     }
-
 
     public static boolean isNetworkAvailable(Context context) {
         ConnectivityManager connectivityManager

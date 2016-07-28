@@ -2,12 +2,14 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical">
+
     <include layout="@layout/header" />
 
     <EditText
         android:id="@+id/input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:hint="@string/hint_search"
         android:imeOptions="actionDone"
         android:maxLength="60"
         android:textSize="26sp" />
@@ -20,7 +22,15 @@
 
     <TextView
         android:id="@+id/btn"
-        style="@style/bottom_button"
-        android:text="@string/btn.search" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/action_bg"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="@string/btn.search"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_largest"
+        android:textStyle="bold" />
 
 </LinearLayout>

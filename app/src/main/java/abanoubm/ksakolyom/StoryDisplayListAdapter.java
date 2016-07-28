@@ -10,7 +10,9 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class StoryDisplayListAdapter extends Adapter<Story> {
 
@@ -40,6 +42,15 @@ public class StoryDisplayListAdapter extends Adapter<Story> {
 
         holder.content.setText(story.getContent().substring(0, Math.max(25, story.getContent().indexOf(' ', 25))));
         holder.date.setText(story.getDate());
+
+        try {
+
+            holder.date.setText(new SimpleDateFormat("EEEE d - M - yyyy",
+                    new Locale("ar")).format(new SimpleDateFormat("yyyy-MM-dd").parse(story.getDate())));
+        } catch (Exception e) {
+            holder.date.setText(story.getDate());
+        }
+
 
         if (story.getPhoto().length() > 0)
             Picasso.with(getContext()).load(story.getPhoto()).placeholder(R.mipmap.ic_def).into(holder.photo);

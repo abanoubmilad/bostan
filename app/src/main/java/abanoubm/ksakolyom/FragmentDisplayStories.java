@@ -25,11 +25,12 @@ public class FragmentDisplayStories extends Fragment {
     private DB mDB;
     private static final String ARG_DUAL_MODE = "dual";
     private ProgressBar previous, next;
-    private boolean loading_previous = false, loading_next = false;
+    private boolean loading_previous = false, loading_next = false, paging_allowed = false;
 
     private class GetAllTask extends AsyncTask<Void, Void, ArrayList<Story>> {
         @Override
         protected void onPreExecute() {
+            paging_allowed = false;
         }
 
         @Override
@@ -37,7 +38,7 @@ public class FragmentDisplayStories extends Fragment {
             if (mDB == null)
                 mDB = DB.getInstant(getActivity());
 
-            if (Utility.isHoldingData(getContext()))
+            if (mDB.isHoldingStories())
                 return mDB.getStories(Utility.STORIES_ALL);
 
             ArrayList<Story> stories = null;
@@ -56,6 +57,7 @@ public class FragmentDisplayStories extends Fragment {
                     Toast.makeText(getActivity(),
                             R.string.msg_no_internet, Toast.LENGTH_SHORT).show();
                 } else {
+                    paging_allowed = true;
                     if (previousPosition < stories.size())
                         lv.setSelection(previousPosition);
                     if (isDualMode) {
@@ -85,7 +87,8 @@ public class FragmentDisplayStories extends Fragment {
                 mDB = DB.getInstant(getActivity());
 
             ArrayList<Story> stories = null;
-            if (Utility.isNetworkAvailable(getContext()) && (stories = Utility.getPreviousPagingStories(getContext())) != null)
+            if (Utility.isNetworkAvailable(getContext()) && (stories =
+                    Utility.getPagingStories(getContext(), Utility.TAG_PREVIOUS)) != null)
                 mDB.addStories(stories);
 
             return stories;
@@ -93,15 +96,10 @@ public class FragmentDisplayStories extends Fragment {
 
         @Override
         protected void onPostExecute(ArrayList<Story> stories) {
-            if (stories != null) {
+            loading_previous = false;
+            if (stories != null)
                 mAdapter.addAll(stories);
-                loading_previous = false;
-                if (stories.size() == 0) {
-                    Utility.setHavePrevious(getContext(), false);
-                } else {
-                    Utility.setHavePrevious(getContext(), true);
-                }
-            }
+
             previous.setVisibility(View.GONE);
 
         }
@@ -120,7 +118,7 @@ public class FragmentDisplayStories extends Fragment {
                 mDB = DB.getInstant(getActivity());
 
             ArrayList<Story> stories = null;
-            if (Utility.isNetworkAvailable(getContext()) && (stories = Utility.getNextPagingStories(getContext())) != null)
+            if (Utility.isNetworkAvailable(getContext()) && (stories = Utility.getPagingStories(getContext(), Utility.TAG_NEXT)) != null)
                 mDB.addStories(stories);
 
             return stories;
@@ -128,13 +126,12 @@ public class FragmentDisplayStories extends Fragment {
 
         @Override
         protected void onPostExecute(ArrayList<Story> stories) {
+            loading_next = false;
+
             if (stories != null) {
                 mAdapter.addAll(stories);
-                loading_next = false;
-                if (stories.size() == 0) {
+                if (stories.size() == 0)
                     loading_next = true;
-                    Utility.setHaveNext(getContext(), false);
-                }
             }
             next.setVisibility(View.GONE);
 
@@ -194,11 +191,13 @@ public class FragmentDisplayStories extends Fragment {
 
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                if (firstVisibleItem + visibleItemCount >= totalItemCount && !loading_next && Utility.doesHaveNext(getContext())) {
+                if (!paging_allowed)
+                    return;
+                if (firstVisibleItem + visibleItemCount >= totalItemCount && !loading_next && Utility.hasPaging(getContext(), Utility.TAG_NEXT)) {
                     loading_next = true;
                     new GetNextPagingTask().execute();
                     Log.i("nexxxxxxxxxxxxxxxt", "a7eeeeeeeeeeeeeeeeeht777t");
-                } else if (firstVisibleItem == 1 && !loading_previous && Utility.doesHavePrevious(getContext())) {
+                } else if (firstVisibleItem == 1 && !loading_previous && Utility.hasPaging(getContext(), Utility.TAG_PREVIOUS)) {
                     loading_previous = true;
                     new GetPreviousPagingTask().execute();
                     Log.i("previiiiiiiiiiious", "a7eeeeeeeeeeeeeeehfooo2");

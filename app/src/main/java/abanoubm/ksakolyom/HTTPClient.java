@@ -13,7 +13,7 @@ public class HTTPClient {
         Request request = new Request.Builder()
                 .url("https://graph.facebook.com/v2.7/208748925813135/feed?" +
                         "fields=picture,message,created_time&" +
-                        "access_token=1010508765734855|1KRvTZIuIUEeYgO-mtZyXPk0xrE"
+                        BuildConfig.F_B_A_T
                 )
                 .build();
         Response response;
@@ -37,6 +37,7 @@ public class HTTPClient {
             response = client.newCall(request).execute();
             return response.body().string();
         } catch (Exception e) {
+            e.printStackTrace();
             return null;
         }
 

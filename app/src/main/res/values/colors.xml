@@ -1,18 +1,12 @@
 <resources>
-    <color name="colorPrimary">#00BCD4</color>
-    <color name="colorPrimaryDark">#0097A7</color>
-    <color name="colorAccent">#2980b9</color>
+    <color name="colorPrimary">#E91E63</color>
+    <color name="colorPrimaryDark">#C2185B</color>
+    <color name="colorAccent">#616161</color>
 
-    <color name="red">#F48FB1</color>
-    <color name="darkred">#E91E63</color>
+    <color name="red">#6FE4DA</color>
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
-    <color name="grey">#323232</color>
-    <color name="alphagrey">#81000000</color>
     <color name="hint">#808080</color>
-    <color name="lightgrey">#EFEFEF</color>
-    <color name="lightergrey">#fafafa</color>
     <color name="hotgreen">#27AB5E</color>
-    <color name="midgrey">#f2f2f2</color>
 
 </resources>

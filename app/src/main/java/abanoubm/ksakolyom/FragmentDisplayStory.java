@@ -15,6 +15,9 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
 public class FragmentDisplayStory extends Fragment {
 
     private String id;
@@ -113,7 +116,13 @@ public class FragmentDisplayStory extends Fragment {
         @Override
         protected void onPostExecute(Void story) {
             content.setText(mStory.getContent());
-            dateView.setText(mStory.getDate());
+            try {
+
+                dateView.setText(new SimpleDateFormat("EEEE d - M - yyyy", new Locale("ar")).format(new SimpleDateFormat("yyyy-MM-dd").parse(mStory.getDate())));
+            } catch (Exception e) {
+                dateView.setText(mStory.getDate());
+            }
+
             content.setText(mStory.getContent());
             if (mStory.getPhoto().length() != 0)
                 Picasso.with(getContext()).load(mStory.getPhoto()).placeholder(R.mipmap.ic_def).into(photo);
