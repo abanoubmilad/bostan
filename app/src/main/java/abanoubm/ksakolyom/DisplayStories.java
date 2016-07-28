@@ -16,7 +16,6 @@ public class DisplayStories extends AppCompatActivity implements CallBack {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_display_stories);
-        ((TextView) findViewById(R.id.subhead)).setText(R.string.subhead_display_stories);
         dualMode = findViewById(R.id.display_stories_fragment_dual) != null;
 
         if (savedInstanceState == null) {
@@ -24,6 +23,17 @@ public class DisplayStories extends AppCompatActivity implements CallBack {
             args.putBoolean(ARG_DUAL_MODE, dualMode);
 
             int selection = getIntent().getIntExtra(ARG_SELECTION, 0);
+
+            if (selection == Utility.STORIES_ALL)
+                ((TextView) findViewById(R.id.subhead)).setText(getResources().getString(R.string.sub_stories));
+            else if (selection == Utility.STORIES_FAV)
+                ((TextView) findViewById(R.id.subhead)).setText(getResources().getString(R.string.sub_fav));
+            else if (selection == Utility.STORIES_UN_READ)
+                ((TextView) findViewById(R.id.subhead)).setText(getResources().getString(R.string.sub_unread));
+            else if (selection == Utility.STORIES_READ)
+                ((TextView) findViewById(R.id.subhead)).setText(getResources().getString(R.string.sub_read));
+
+
             if (selection == Utility.STORIES_ALL) {
 
                 FragmentDisplayStories fragment = new FragmentDisplayStories();

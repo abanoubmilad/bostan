@@ -98,7 +98,7 @@ public class FragmentDisplayStories extends Fragment {
         protected void onPostExecute(ArrayList<Story> stories) {
             loading_previous = false;
             if (stories != null)
-                mAdapter.addAll(stories);
+                mAdapter.appendAllOnTop(stories);
 
             previous.setVisibility(View.GONE);
 
@@ -139,15 +139,6 @@ public class FragmentDisplayStories extends Fragment {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        if (DB.getInstant(getActivity()).isDirty()) {
-            new GetAllTask().execute();
-            DB.getInstant(getActivity()).clearDirty();
-        }
-    }
-
-    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle arguments = getArguments();
@@ -160,6 +151,8 @@ public class FragmentDisplayStories extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_display_stories, container, false);
+
+
         lv = (ListView) root.findViewById(R.id.list);
 
 
@@ -205,6 +198,20 @@ public class FragmentDisplayStories extends Fragment {
             }
         });
 
+        root.findViewById(R.id.up).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mAdapter.getCount() > 0)
+                    lv.setSelection(0);
+            }
+        });
+        root.findViewById(R.id.down).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mAdapter.getCount() > 0)
+                    lv.setSelection(mAdapter.getCount() - 1);
+            }
+        });
         return root;
     }
 

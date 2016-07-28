@@ -2,7 +2,7 @@
     android:id="@+id/footer"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/red"
+    android:background="@color/dark"
     android:gravity="center"
     android:padding="2dp"
     android:textColor="@color/white"

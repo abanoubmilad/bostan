@@ -38,6 +38,7 @@ public class Utility {
             ArrayList<Story> stories = new ArrayList<>(length);
             JSONObject subObj;
             String picture;
+            String msg;
             for (int i = 0; i < length; i++) {
                 subObj = array.getJSONObject(i);
                 try {
@@ -45,8 +46,13 @@ public class Utility {
                 } catch (JSONException e) {
                     picture = "";
                 }
+                try {
+                    msg = subObj.getString("message");
+                } catch (JSONException e) {
+                    msg = "";
+                }
                 stories.add(new Story(subObj.getString("id"), picture,
-                        subObj.getString("message"),
+                        msg,
                         subObj.getString("created_time").substring(0, 10)));
             }
 
@@ -112,17 +118,14 @@ public class Utility {
                 new Date())).commit();
     }
 
-    public static String getLastPaging(Context context) {
-        return context.getSharedPreferences(TAG_PAGING,
-                Context.MODE_PRIVATE).getString(TAG_LAST, "");
-    }
 
     public static boolean hasPaging(Context context, String pagingType) {
         if (pagingType.equals(TAG_PREVIOUS))
             return getPagingURL(context, TAG_PREVIOUS).length() != 0;
         else
             return getPagingURL(context, TAG_NEXT).length() != 0 || new SimpleDateFormat("yyyy-MM-dd").format(
-                    new Date()).compareTo(getLastPaging(context)) == 1;
+                    new Date()).compareTo(context.getSharedPreferences(TAG_PAGING,
+                    Context.MODE_PRIVATE).getString(TAG_LAST, "")) == 1;
 
 
     }
@@ -132,5 +135,19 @@ public class Utility {
                 = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
+    public static String produceDate(int day, int month, int year) {
+        if (month < 10) {
+            if (day < 10)
+                return year + "-0" + month + "-0" + day;
+            else
+                return year + "-0" + month + "-" + day;
+        } else {
+            if (day < 10)
+                return year + "-" + month + "-0" + day;
+            else
+                return year + "-" + month + "-" + day;
+        }
     }
 }

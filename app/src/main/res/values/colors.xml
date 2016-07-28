@@ -8,5 +8,6 @@
     <color name="black">#000000</color>
     <color name="hint">#808080</color>
     <color name="hotgreen">#27AB5E</color>
+    <color name="dark">#16566f</color>
 
 </resources>

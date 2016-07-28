@@ -39,8 +39,8 @@ public class StoryDisplayListAdapter extends Adapter<Story> {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-
-        holder.content.setText(story.getContent().substring(0, Math.max(25, story.getContent().indexOf(' ', 25))));
+        int offset = Math.min(story.getContent().length(), 25);
+        holder.content.setText(story.getContent().substring(0, Math.max(offset, story.getContent().indexOf(' ', offset))));
         holder.date.setText(story.getDate());
 
         try {

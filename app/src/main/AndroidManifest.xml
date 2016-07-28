@@ -24,7 +24,8 @@
         <activity android:name=".Main" />
         <activity android:name=".DisplayStories" />
         <activity android:name=".DisplayStory" />
-        <activity android:name=".Search" />
+        <activity android:name=".SearchContent" />
+        <activity android:name=".SearchDates" />
     </application>
 
 </manifest>

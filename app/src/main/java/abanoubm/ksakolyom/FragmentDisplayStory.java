@@ -115,6 +115,11 @@ public class FragmentDisplayStory extends Fragment {
 
         @Override
         protected void onPostExecute(Void story) {
+            if (mStory.getPhoto().length() != 0)
+                Picasso.with(getContext()).load(mStory.getPhoto()).placeholder(R.mipmap.ic_def).into(photo);
+            else
+                photo.setImageResource(R.mipmap.ic_def);
+
             content.setText(mStory.getContent());
             try {
 
@@ -124,10 +129,7 @@ public class FragmentDisplayStory extends Fragment {
             }
 
             content.setText(mStory.getContent());
-            if (mStory.getPhoto().length() != 0)
-                Picasso.with(getContext()).load(mStory.getPhoto()).placeholder(R.mipmap.ic_def).into(photo);
-            else
-                photo.setImageResource(R.mipmap.ic_def);
+
 
             if (mStory.getRead().equals("2")) {
                 fav.setImageResource(R.mipmap.ic_fav);

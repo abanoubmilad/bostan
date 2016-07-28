@@ -22,15 +22,6 @@ public class DB extends SQLiteOpenHelper {
     private static DB dbm;
     private SQLiteDatabase readableDB, writableDB;
 
-    private boolean dirtyFlag = false;
-
-    public boolean isDirty() {
-        return this.dirtyFlag;
-    }
-
-    public void clearDirty() {
-        this.dirtyFlag = false;
-    }
 
     public static DB getInstant(Context context) {
         return dbm != null ? dbm : (dbm = new DB(context));
@@ -52,11 +43,6 @@ public class DB extends SQLiteOpenHelper {
                 STORY_DATE + " character(10), " +
                 "primary key (" + STORY_ID + "," + STORY_DATE + "))";
         db.execSQL(sql);
-//
-//        sql = "create primary ON " + TB_STORY + " (" + STORY_ID + "," + STORY_DATE + ")";
-//        db.execSQL(sql);
-
-
     }
 
     @Override
@@ -75,7 +61,6 @@ public class DB extends SQLiteOpenHelper {
     }
 
     public void addStories(ArrayList<Story> stories) {
-        this.dirtyFlag = true;
         writableDB.beginTransaction();
         ContentValues values;
         for (Story story : stories) {
@@ -120,7 +105,26 @@ public class DB extends SQLiteOpenHelper {
     public ArrayList<Story> searchStories(String token) {
         Cursor c = readableDB.query(TB_STORY,
                 new String[]{STORY_ID, STORY_READ, STORY_PHOTO, STORY_CONTENT, STORY_DATE},
-                STORY_CONTENT + " like ?", new String[]{"'%" + token + "%'"}, null, null, STORY_DATE + " DESC", null);
+                STORY_CONTENT + " like ?", new String[]{"%" + token + "%"}, null, null, STORY_DATE + " DESC", null);
+        ArrayList<Story> result = new ArrayList<>(c.getCount());
+
+        if (c.moveToFirst()) {
+
+            do {
+                result.add(new Story(c.getString(0), c.getString(1),
+                        c.getString(2), c.getString(3), c.getString(4)));
+
+            } while (c.moveToNext());
+        }
+        c.close();
+
+        return result;
+
+    }
+    public ArrayList<Story> searchDates(String date) {
+        Cursor c = readableDB.query(TB_STORY,
+                new String[]{STORY_ID, STORY_READ, STORY_PHOTO, STORY_CONTENT, STORY_DATE},
+                STORY_DATE + "=?", new String[]{date}, null, null, STORY_DATE + " DESC", null);
         ArrayList<Story> result = new ArrayList<>(c.getCount());
 
         if (c.moveToFirst()) {

@@ -37,4 +37,14 @@ public class Adapter<T> extends ArrayAdapter<T> {
             notifyDataSetChanged();
         }
     }
+
+    public void appendAllOnTop(ArrayList<T> list) {
+        setNotifyOnChange(false);
+        int length = list.size();
+        for (int i = length - 1; i > -1; i--)
+            super.insert(list.get(i), 0);
+        setNotifyOnChange(true);
+        notifyDataSetChanged();
+
+    }
 }

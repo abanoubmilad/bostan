@@ -24,7 +24,7 @@ public class Main extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_main);
-        ((TextView) findViewById(R.id.footer)).setText("ksa kolyom " +
+        ((TextView) findViewById(R.id.footer)).setText("ksa kol yom " +
                 BuildConfig.VERSION_NAME + " @" + new SimpleDateFormat(
                 "yyyy", Locale.getDefault())
                 .format(new Date()) + " Abanoub M.");
@@ -43,22 +43,22 @@ public class Main extends Activity {
                                     int position, long id) {
                 switch (position) {
                     case 0:
-
-                        break;
-                    case 1:
                         startActivity(new Intent(Main.this, DisplayStories.class).putExtra(ARG_SELECTION, Utility.STORIES_ALL));
                         break;
-                    case 2:
+                    case 1:
                         startActivity(new Intent(Main.this, DisplayStories.class).putExtra(ARG_SELECTION, Utility.STORIES_FAV));
                         break;
-                    case 3:
+                    case 2:
                         startActivity(new Intent(Main.this, DisplayStories.class).putExtra(ARG_SELECTION, Utility.STORIES_UN_READ));
                         break;
-                    case 4:
+                    case 3:
                         startActivity(new Intent(Main.this, DisplayStories.class).putExtra(ARG_SELECTION, Utility.STORIES_READ));
                         break;
+                    case 4:
+                        startActivity(new Intent(Main.this, SearchContent.class));
+                        break;
                     case 5:
-                        startActivity(new Intent(Main.this, Search.class));
+                        startActivity(new Intent(Main.this, SearchDates.class));
                         break;
                     case 6:
                         try {

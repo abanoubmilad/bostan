@@ -3,22 +3,27 @@
 
     <string name="app_name">قصة كل يوم</string>
     <string name="btn.search">بحث</string>
-    <string name="copyright">ksa kolyom 1.0 ©%1$s\nAbanoub Milad Hanna\nabanoubcs@gmail.com</string>
-    <string name="subhead_display_stories">القصص</string>
-    <string name="subhead_search">البحث فى القصص</string>
+    <string name="copyright">ksa kol yom 1.0 ©%1$s\nAbanoub Milad Hanna\nabanoubcs@gmail.com</string>
     <string name="msg_no_stories">لا توجد قصص </string>
     <string name="msg_no_internet">تأكد من اتصالك بالانترنت</string>
     <string name="msg_no_results">لا توجد نتائج بحث</string>
     <string name="msg_added_fav">تم الاضافة الى القصص المُفضلة</string>
-    <string name="hint_search">اابحث عن ...</string>
+    <string name="hint_search">ابحث عن ...</string>
+
+    <string name="sub_stories">قصص</string>
+    <string name="sub_fav">قصص مُفضلة</string>
+    <string name="sub_unread">قصص لم تُقرأ</string>
+    <string name="sub_read">قصص تم قرائتها</string>
+    <string name="sub_search_content">بحث فى محتوى القصص</string>
+    <string name="sub_search_dates">بحث بيوم القصة</string>
 
     <string-array name="main_menu">
-        <item>قصة اليوم</item>
-        <item>كل القصص</item>
-        <item>قصص مُفضلة</item>
-        <item>قصص لم تُقرأ</item>
-        <item>قصص تم قرائتها</item>
-        <item>بحث فى القصص</item>
+        <item>@string/sub_stories</item>
+        <item>@string/sub_fav</item>
+        <item>@string/sub_unread</item>
+        <item>@string/sub_read</item>
+        <item>@string/sub_search_content</item>
+        <item>@string/sub_search_dates</item>
         <item>الابلاغ عن مشكلة / اقتراحات</item>
         <item>تابعنا على فيس بوك</item>
         <item>تواصل مع المُطور</item>
@@ -26,12 +31,12 @@
     </string-array>
 
     <string-array name="main_icons" translatable="false">
-        <item>@mipmap/ic_today</item>
-        <item>@mipmap/ic_read</item>
+        <item>@mipmap/ic_stories</item>
         <item>@mipmap/ic_fav</item>
-        <item>@mipmap/ic_noah</item>
-        <item>@mipmap/ic_tree</item>
+        <item>@mipmap/ic_new</item>
+        <item>@mipmap/ic_read</item>
         <item>@mipmap/ic_search</item>
+        <item>@mipmap/ic_dates</item>
         <item>@mipmap/ic_report</item>
         <item>@mipmap/ic_like</item>
         <item>@mipmap/ic_contact</item>

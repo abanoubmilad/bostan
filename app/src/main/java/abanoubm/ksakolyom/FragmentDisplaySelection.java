@@ -67,6 +67,7 @@ public class FragmentDisplaySelection extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_display_stories, container, false);
+
         lv = (ListView) root.findViewById(R.id.list);
 
         msg = root.findViewById(R.id.msg);
@@ -84,6 +85,20 @@ public class FragmentDisplaySelection extends Fragment {
                 previousPosition = lv.getFirstVisiblePosition();
 
                 ((CallBack) getActivity()).notify((mAdapter.getItem(position).getId()));
+            }
+        });
+        root.findViewById(R.id.up).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mAdapter.getCount() > 0)
+                    lv.setSelection(0);
+            }
+        });
+        root.findViewById(R.id.down).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mAdapter.getCount() > 0)
+                    lv.setSelection(mAdapter.getCount() - 1);
             }
         });
         return root;
