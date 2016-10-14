@@ -7,36 +7,15 @@
         <item name="android:windowBackground">@color/white</item>
         <item name="android:textColor">@color/black</item>
 
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/light</item>
+        <item name="colorPrimaryDark">@color/dark</item>
+        <item name="colorAccent">@color/cyan</item>
     </style>
 
     <style name="Splash" parent="AppTheme">
         <item name="android:windowBackground">@drawable/splash</item>
     </style>
 
-    <style name="label">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginBottom">5dip</item>
-        <item name="android:layout_marginTop">5dip</item>
-        <item name="android:textSize">@dimen/font_large</item>
-    </style>
-
-    <style name="label_input" parent="label">
-        <item name="android:layout_marginRight">10dip</item>
-        <item name="android:layout_marginLeft">10dip</item>
-        <item name="android:layout_gravity">center</item>
-        <item name="android:textSize">@dimen/font_larger</item>
-
-    </style>
-
-    <style name="field_input" parent="label_input">
-        <item name="android:maxLength">60</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:inputType">textMultiLine</item>
-    </style>
 
 
 </resources>

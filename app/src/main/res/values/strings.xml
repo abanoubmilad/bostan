@@ -1,45 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">قصة كل يوم</string>
-    <string name="btn.search">بحث</string>
-    <string name="copyright">ksa kol yom 1.0 ©%1$s\nAbanoub Milad Hanna\nabanoubcs@gmail.com</string>
-    <string name="msg_no_stories">لا توجد قصص </string>
-    <string name="msg_no_internet">تأكد من اتصالك بالانترنت</string>
-    <string name="msg_no_results">لا توجد نتائج بحث</string>
-    <string name="msg_added_fav">تم الاضافة الى القصص المُفضلة</string>
-    <string name="hint_search">ابحث عن ...</string>
+    <string name="app_name">بستان الرهبان</string>
+    <string name="copyright">bostan 1.4 ©%1$s Abanoub M.</string>
+    <string name="share">شير</string>
+    <string name="tweet">تويت</string>
+    <string name="next">التالى</string>
+    <string name="previous">السابق</string>
+    <string name="inputsect">رقم المقطع</string>
+    <string name="readall">قراءة بستان الرهبان</string>
+    <string name="searchall">بحث بستان الرهبان</string>
+    <string name="contact">تواصل معنا</string>
+    <string name="results">نتائج البحث</string>
+    <string name="readcharacters">قراءة سير وأقوال</string>
+    <string name="searchfor">ابحث عن</string>
+    <string name="display">اذهب الى المقطع</string>
+    <string name="err.msg.db">خطأ أثناء محاولة الاتصال بقاعدة البيانات</string>
 
-    <string name="sub_stories">قصص</string>
-    <string name="sub_fav">قصص مُفضلة</string>
-    <string name="sub_unread">قصص لم تُقرأ</string>
-    <string name="sub_read">قصص تم قرائتها</string>
-    <string name="sub_search_content">بحث فى محتوى القصص</string>
-    <string name="sub_search_dates">بحث بيوم القصة</string>
-
-    <string-array name="main_menu">
-        <item>@string/sub_stories</item>
-        <item>@string/sub_fav</item>
-        <item>@string/sub_unread</item>
-        <item>@string/sub_read</item>
-        <item>@string/sub_search_content</item>
-        <item>@string/sub_search_dates</item>
-        <item>الابلاغ عن مشكلة / اقتراحات</item>
-        <item>تابعنا على فيس بوك</item>
-        <item>تواصل مع المُطور</item>
-        <item>تقييم قصة كل يوم</item>
-    </string-array>
-
-    <string-array name="main_icons" translatable="false">
-        <item>@mipmap/ic_stories</item>
-        <item>@mipmap/ic_fav</item>
-        <item>@mipmap/ic_new</item>
-        <item>@mipmap/ic_read</item>
-        <item>@mipmap/ic_search</item>
-        <item>@mipmap/ic_dates</item>
-        <item>@mipmap/ic_report</item>
-        <item>@mipmap/ic_like</item>
-        <item>@mipmap/ic_contact</item>
-        <item>@mipmap/ic_rate</item>
-    </string-array>
 </resources>

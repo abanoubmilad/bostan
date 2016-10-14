@@ -1,8 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="abanoubm.ksakolyom">
+    package="abanoubm.bostan">
 
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.read_external_storage" />
+    <uses-permission android:name="android.permission.write_external_storage"/>
 
     <application
         android:allowBackup="true"
@@ -22,10 +22,12 @@
             </intent-filter>
         </activity>
         <activity android:name=".Main" />
-        <activity android:name=".DisplayStories" />
-        <activity android:name=".DisplayStory" />
-        <activity android:name=".SearchContent" />
-        <activity android:name=".SearchDates" />
+        <activity android:name=".DisplaySection" />
+        <activity android:name=".SectionChooser" />
+        <activity android:name=".CharacterChooser" />
+        <activity android:name=".CharSectionChooser" />
+        <activity android:name=".DisplaySearchResults" />
+        <activity android:name=".Search" />
     </application>
 
 </manifest>
