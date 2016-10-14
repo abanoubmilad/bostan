@@ -1,8 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="abanoubm.bostan">
 
-    <uses-permission android:name="android.permission.read_external_storage" />
-    <uses-permission android:name="android.permission.write_external_storage"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -23,7 +23,8 @@
         </activity>
         <activity android:name=".Main" />
         <activity android:name=".DisplaySection" />
-        <activity android:name=".SectionChooser" />
+        <activity android:name=".SectionChooser"
+            android:windowSoftInputMode="stateHidden"/>
         <activity android:name=".CharacterChooser" />
         <activity android:name=".CharSectionChooser" />
         <activity android:name=".DisplaySearchResults" />
