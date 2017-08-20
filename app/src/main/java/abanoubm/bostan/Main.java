@@ -8,6 +8,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -19,8 +22,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class Main extends Activity {
-
+public class Main extends AppCompatActivity {
+    private  DrawerLayout nav;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,34 +35,55 @@ public class Main extends Activity {
                 new SimpleDateFormat("yyyy", Locale.getDefault())
                         .format(new Date())));
 
-        ((TextView) findViewById(R.id.subhead)).setText(R.string.app_name);
 
-        ListView lv = (ListView) findViewById(R.id.list);
+        ListView lv = (ListView)findViewById(R.id.list);
+        nav = (DrawerLayout)findViewById(R.id.drawer_layout);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 getApplicationContext(), R.layout.homemenu_item, R.id.menuItem,
                 BostanInfo.menuItems);
         lv.setAdapter(adapter);
+
+        ((TextView) findViewById(R.id.subhead))
+                .setText(R.string.readcharacters);
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment, new CharacterChooser())
+                .commit();
+
+
+        View header = getLayoutInflater().inflate(R.layout.menu_header, lv, false);
+        lv.addHeaderView(header, null, false);
+
 
         lv.setOnItemClickListener(new OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
+                nav.closeDrawers();
+                --position;
                 switch (position) {
                     case 0:
+                        ((TextView) findViewById(R.id.subhead)).setText(R.string.readall);
 
-                        startActivity(new Intent(getApplicationContext(),
-                                SectionChooser.class));
+
+                        getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.fragment, new SectionChooser())
+                                .commit();
                         break;
                     case 1:
-                        startActivity(new Intent(getApplicationContext(),
-                                CharacterChooser.class));
+                        ((TextView) findViewById(R.id.subhead))
+                                .setText(R.string.readcharacters);
+                        getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.fragment, new CharacterChooser())
+                                .commit();
 
                         break;
                     case 2:
-                        startActivity(new Intent(getApplicationContext(),
-                                Search.class));
+                        ((TextView) findViewById(R.id.subhead)).setText(R.string.searchall);
 
+                        getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.fragment, new Search())
+                                .commit();
                         break;
                     case 3:
                         try {
@@ -86,7 +110,13 @@ public class Main extends Activity {
                 }
             }
         });
+        findViewById(R.id.nav_menu).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                nav.openDrawer(Gravity.RIGHT);
 
+            }
+        });
         if (ContextCompat.checkSelfPermission(Main.this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
                 || ContextCompat.checkSelfPermission(Main.this,
@@ -100,5 +130,13 @@ public class Main extends Activity {
 
         }
 
+    }
+    @Override
+    public void onBackPressed() {
+        if (nav.isDrawerOpen(Gravity.RIGHT)) {
+            nav.closeDrawer(Gravity.RIGHT);
+        } else {
+            super.onBackPressed();
+        }
     }
 }

@@ -17,9 +17,9 @@ public class BostanInfo {
 
     public static final ArrayList<String> menuItems = new ArrayList<String>() {
         {
-            add("قراءة بستان الرهبان");
-            add("قراءة سير وأقوال");
-            add("بحث بستان الرهبان");
+            add("عرض المقاطع");
+            add("سير وأقوال");
+            add("بحث");
             add("تابعنا على فيس بوك");
             add("تواصل مع المُطور");
         }

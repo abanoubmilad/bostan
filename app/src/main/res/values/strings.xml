@@ -2,17 +2,17 @@
 <resources>
 
     <string name="app_name">بستان الرهبان</string>
-    <string name="copyright">bostan 1.4 ©%1$s Abanoub M.</string>
+    <string name="copyright">bostan 1.6 ©%1$s Abanoub M.</string>
     <string name="share">شير</string>
     <string name="tweet">تويت</string>
     <string name="next">التالى</string>
     <string name="previous">السابق</string>
     <string name="inputsect">الذهاب الى مقطع رقم</string>
-    <string name="readall">قراءة بستان الرهبان</string>
-    <string name="searchall">بحث بستان الرهبان</string>
+    <string name="readall">عرض المقاطع</string>
+    <string name="searchall">بحث</string>
     <string name="contact">تواصل معنا</string>
     <string name="results">نتائج البحث</string>
-    <string name="readcharacters">قراءة سير وأقوال</string>
+    <string name="readcharacters">سير وأقوال</string>
     <string name="searchfor">ابحث عن</string>
     <string name="display">اذهب</string>
     <string name="err.msg.db">خطأ أثناء محاولة عرض البيانات</string>

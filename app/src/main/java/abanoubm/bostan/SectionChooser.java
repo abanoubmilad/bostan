@@ -1,40 +1,40 @@
 package abanoubm.bostan;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
 import android.widget.GridView;
-import android.widget.TextView;
 
-public class SectionChooser extends Activity {
+public class SectionChooser extends Fragment {
     private GridView lv;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_section_chooser);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View root = inflater.inflate(R.layout.frag_sections, container, false);
 
-        lv = (GridView) findViewById(R.id.grid_view);
-        lv.setAdapter(new GridBaseAdapter(this, 1226));
+        lv = (GridView)   root.findViewById(R.id.grid_view);
+        lv.setAdapter(new GridBaseAdapter(getActivity(), 1226));
         lv.setOnItemClickListener(new OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View arg1,
                                     int position, long arg3) {
-                startActivity(new Intent(getApplicationContext(),
+                startActivity(new Intent(getActivity(),
                         DisplaySection.class).putExtra("sec", position + 1));
 
             }
         });
-        ((TextView) findViewById(R.id.subhead)).setText(R.string.readall);
 
-        final EditText userInput = (EditText) findViewById(R.id.input);
-        findViewById(R.id.search)
+        final EditText userInput = (EditText)   root.findViewById(R.id.input);
+        root.findViewById(R.id.search)
                 .setOnClickListener(new OnClickListener() {
 
                     @Override
@@ -51,6 +51,7 @@ public class SectionChooser extends Activity {
                     }
 
                 });
+        return root;
     }
 
 }

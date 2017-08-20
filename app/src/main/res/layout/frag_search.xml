@@ -4,8 +4,6 @@
     android:layout_height="wrap_content"
     android:orientation="vertical" >
 
-    <include layout="@layout/header" />
-
     <EditText
         android:id="@+id/sa_edittext"
         android:layout_width="match_parent"

@@ -1,17 +1,19 @@
 package abanoubm.bostan;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class Search extends Activity {
+public class Search extends Fragment{
     private EditText et;
 
     private class SearchTask extends AsyncTask<String, Void, Boolean> {
@@ -19,7 +21,7 @@ public class Search extends Activity {
 
         @Override
         protected void onPreExecute() {
-            pBar = new ProgressDialog(Search.this);
+            pBar = new ProgressDialog(getActivity());
             pBar.setCancelable(false);
             pBar.show();
         }
@@ -28,7 +30,7 @@ public class Search extends Activity {
         protected Boolean doInBackground(String... params) {
             try {
                 BostanInfo.searchResults = DB.getInstance(
-                        getApplicationContext()).search(params[0]);
+                        getActivity()).search(params[0]);
                 return true;
             } catch (Exception e) {
                 return false;
@@ -39,24 +41,23 @@ public class Search extends Activity {
         @Override
         protected void onPostExecute(Boolean result) {
             if (result)
-                startActivity(new Intent(getApplicationContext(),
+                startActivity(new Intent(getActivity(),
                         DisplaySearchResults.class));
             else
-                Toast.makeText(getApplicationContext(), R.string.err_msg_db,
+                Toast.makeText(getActivity(), R.string.err_msg_db,
                         Toast.LENGTH_LONG).show();
             pBar.dismiss();
         }
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View root = inflater.inflate(R.layout.frag_search, container, false);
 
-        ((TextView) findViewById(R.id.subhead)).setText(R.string.searchall);
 
-        et = (EditText) findViewById(R.id.sa_edittext);
-        TextView search = (TextView) findViewById(R.id.sa_iv);
+        et = (EditText) root.findViewById(R.id.sa_edittext);
+        TextView search = (TextView) root.findViewById(R.id.sa_iv);
 
         search.setOnClickListener(new OnClickListener() {
 
@@ -64,7 +65,7 @@ public class Search extends Activity {
             public void onClick(View arg0) {
                 String input = et.getText().toString().trim();
                 if (input.length() < 2) {
-                    Toast.makeText(getApplicationContext(),
+                    Toast.makeText(getActivity(),
                             " قم بادخال كلمة أو جملة للبحث ", Toast.LENGTH_LONG)
                             .show();
                 } else {
@@ -72,6 +73,6 @@ public class Search extends Activity {
                 }
             }
         });
-
+return root;
     }
 }

@@ -43,7 +43,7 @@ public class DisplaySearchResults extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chooser);
+        setContentView(R.layout.acticity_chooser);
         lv = (ListView) findViewById(R.id.list);
         lv.setOnItemClickListener(new OnItemClickListener() {
 

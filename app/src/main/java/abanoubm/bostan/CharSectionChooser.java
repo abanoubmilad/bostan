@@ -53,7 +53,7 @@ public class CharSectionChooser extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chooser);
+        setContentView(R.layout.acticity_chooser);
 
         final int pos = getIntent().getIntExtra("pos", 0);
         lv = (ListView) findViewById(R.id.list);

@@ -1,21 +1,22 @@
 package abanoubm.bostan;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class CharacterChooser extends Activity {
+public class CharacterChooser extends Fragment{
     private ListView lv;
 
     private class GetTask extends AsyncTask<Void, Void, ArrayAdapter<String>> {
@@ -23,14 +24,14 @@ public class CharacterChooser extends Activity {
 
         @Override
         protected void onPreExecute() {
-            pBar = new ProgressDialog(CharacterChooser.this);
+            pBar = new ProgressDialog(getActivity());
             pBar.setCancelable(false);
             pBar.show();
         }
 
         @Override
         protected ArrayAdapter<String> doInBackground(Void... params) {
-            return new ArrayAdapter<String>(getApplicationContext(),
+            return new ArrayAdapter<String>(getActivity(),
                     R.layout.char_item, R.id.chapitem_tv,
                     new ArrayList<String>(Arrays.asList(BostanInfo.characters)));
         }
@@ -44,25 +45,25 @@ public class CharacterChooser extends Activity {
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chooser);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View root = inflater.inflate(R.layout.frag_chooser, container, false);
 
-        lv = (ListView) findViewById(R.id.list);
+        lv = (ListView) root.findViewById(R.id.list);
         lv.setOnItemClickListener(new OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> arg0, View view,
                                     int position, long arg3) {
-                startActivity(new Intent(getApplicationContext(),
+                startActivity(new Intent(getActivity(),
                         CharSectionChooser.class).putExtra("pos",
                         position));
 
             }
         });
-        ((TextView) findViewById(R.id.subhead))
-                .setText(R.string.readcharacters);
+
 
         new GetTask().execute();
+        return root;
     }
 }
