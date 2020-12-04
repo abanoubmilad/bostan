@@ -15,31 +15,6 @@ import android.widget.Toast;
 public class DisplaySearchResults extends Activity {
     private ListView lv;
 
-    private class DisplayTask extends AsyncTask<Void, Void, SectionsAdapter> {
-        private ProgressDialog pBar;
-
-        @Override
-        protected void onPreExecute() {
-            pBar = new ProgressDialog(DisplaySearchResults.this);
-            pBar.setCancelable(false);
-            pBar.show();
-        }
-
-        @Override
-        protected SectionsAdapter doInBackground(Void... params) {
-            return new SectionsAdapter(getApplicationContext(),
-                    BostanInfo.searchResults);
-        }
-
-        @Override
-        protected void onPostExecute(SectionsAdapter result) {
-            lv.setAdapter(result);
-
-            pBar.dismiss();
-
-        }
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,5 +47,30 @@ public class DisplaySearchResults extends Activity {
             new DisplayTask().execute();
         }
 
+    }
+
+    private class DisplayTask extends AsyncTask<Void, Void, SectionsAdapter> {
+        private ProgressDialog pBar;
+
+        @Override
+        protected void onPreExecute() {
+            pBar = new ProgressDialog(DisplaySearchResults.this);
+            pBar.setCancelable(false);
+            pBar.show();
+        }
+
+        @Override
+        protected SectionsAdapter doInBackground(Void... params) {
+            return new SectionsAdapter(getApplicationContext(),
+                    BostanInfo.searchResults);
+        }
+
+        @Override
+        protected void onPostExecute(SectionsAdapter result) {
+            lv.setAdapter(result);
+
+            pBar.dismiss();
+
+        }
     }
 }

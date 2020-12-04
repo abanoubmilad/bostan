@@ -15,6 +15,32 @@ import android.widget.Toast;
 public class CharSectionChooser extends Activity {
     private ListView lv;
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.acticity_chooser);
+
+        final int pos = getIntent().getIntExtra("pos", 0);
+        lv = (ListView) findViewById(R.id.list);
+        lv.setOnItemClickListener(new OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View arg1,
+                                    int position, long arg3) {
+                Intent intent = new Intent(getApplicationContext(),
+                        DisplaySection.class).putExtra("sec", position
+                        + BostanInfo.charactersNum[pos]);
+                startActivity(intent);
+
+            }
+        });
+        ((TextView) findViewById(R.id.subhead))
+                .setText(BostanInfo.characters[pos]);
+
+        new SearchTask().execute(pos, pos + 1);
+
+    }
+
     private class SearchTask extends AsyncTask<Integer, Void, SectionsAdapter> {
         private ProgressDialog pBar;
 
@@ -48,31 +74,5 @@ public class CharSectionChooser extends Activity {
                         Toast.LENGTH_LONG).show();
             pBar.dismiss();
         }
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.acticity_chooser);
-
-        final int pos = getIntent().getIntExtra("pos", 0);
-        lv = (ListView) findViewById(R.id.list);
-        lv.setOnItemClickListener(new OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, View arg1,
-                                    int position, long arg3) {
-                Intent intent = new Intent(getApplicationContext(),
-                        DisplaySection.class).putExtra("sec", position
-                        + BostanInfo.charactersNum[pos]);
-                startActivity(intent);
-
-            }
-        });
-        ((TextView) findViewById(R.id.subhead))
-                .setText(BostanInfo.characters[pos]);
-
-        new SearchTask().execute(pos, pos + 1);
-
     }
 }

@@ -7,7 +7,8 @@
     <string name="tweet">تويت</string>
     <string name="next">التالى</string>
     <string name="previous">السابق</string>
-    <string name="inputsect">الذهاب الى مقطع رقم</string>
+    <string name="go_to">اختيار</string>
+    <string name="sec_num">رقم المقطع</string>
     <string name="readall">عرض المقاطع</string>
     <string name="searchall">بحث</string>
     <string name="contact">تواصل معنا</string>

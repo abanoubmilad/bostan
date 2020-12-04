@@ -2,20 +2,20 @@ package abanoubm.bostan;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-public class GridBaseAdapter extends BaseAdapter {
+import androidx.core.content.ContextCompat;
 
-    private int fieldsCount;
-    private Context context;
+public class GridBaseAdapter extends BaseAdapter {
 
     private static int white = Color.WHITE,
             grey;
+    private int fieldsCount;
+    private Context context;
 
 
     public GridBaseAdapter(Context context, int fieldsCount) {

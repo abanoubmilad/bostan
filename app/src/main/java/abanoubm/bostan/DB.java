@@ -4,7 +4,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.os.Environment;
 import android.text.Html;
 import android.text.Spanned;
 
@@ -23,30 +22,14 @@ public class DB extends SQLiteOpenHelper {
     private static String DB_NAME = ".systbdefault";
     private static String assets_DB_NAME = "systbdefault.zip";
     private static String Tb_NAME = "bostan_tb";
-    private SQLiteDatabase db;
-    private final Context mContext;
     private static DB dbm;
-
-    public static DB getInstance(Context context) throws IOException {
-        if (dbm == null)
-            dbm = new DB(context);
-        return dbm;
-    }
+    private final Context mContext;
+    private SQLiteDatabase db;
 
     private DB(Context context) throws IOException {
         super(context, DB_NAME, null, 1);
-        if (android.os.Environment.getExternalStorageState().equals(
-                android.os.Environment.MEDIA_MOUNTED)) {
-            DB_PATH = Environment.getExternalStorageDirectory()
-                    .getAbsolutePath() + "/.systfile/";
-        } else {
-            if (android.os.Build.VERSION.SDK_INT >= 17) {
-                DB_PATH = context.getApplicationInfo().dataDir + "/.systfile/";
-            } else {
-                DB_PATH = "/data/data/" + context.getPackageName()
-                        + "/.systfile/";
-            }
-        }
+        DB_PATH = context.getFilesDir().getPath();
+
         this.mContext = context;
 
         String mPath = DB_PATH + DB_NAME;
@@ -56,6 +39,12 @@ public class DB extends SQLiteOpenHelper {
 
         db = SQLiteDatabase.openDatabase(mPath, null,
                 SQLiteDatabase.OPEN_READONLY);
+    }
+
+    public static DB getInstance(Context context) throws IOException {
+        if (dbm == null)
+            dbm = new DB(context);
+        return dbm;
     }
 
     @Override

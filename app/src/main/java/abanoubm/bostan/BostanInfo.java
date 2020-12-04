@@ -3,28 +3,14 @@ package abanoubm.bostan;
 import java.util.ArrayList;
 
 public class BostanInfo {
-    public static String getArabicNum(int num) {
-        char[] arr = {'٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'};
-        String arabic = "";
-
-        while (num > 0) {
-            arabic = arr[num % 10] + arabic;
-            num /= 10;
-        }
-
-        return arabic;
-    }
-
     public static final ArrayList<String> menuItems = new ArrayList<String>() {
         {
             add("عرض المقاطع");
             add("سير وأقوال");
             add("بحث");
-            add("تابعنا على فيس بوك");
             add("تواصل مع المُطور");
         }
     };
-    public static ArrayList<Section> searchResults;
     public static final String[] characters = {"القديس أنطونيوس الكبير",
             "القديس مقاريوس المصري الكبير", "الأنبا باخوميوس",
             "القديس اكليماكوس", "مار إسحق", "الأنبا أرسانيوس", "مار إسحق",
@@ -43,5 +29,18 @@ public class BostanInfo {
     public static final int[] charactersNum = {1, 33, 74, 91, 92, 94, 131, 134, 158,
             174, 189, 199, 211, 223, 249, 258, 295, 271, 275, 278, 389, 591,
             991, 1193, 1204, 1225, 1226};
+    public static ArrayList<Section> searchResults;
+
+    public static String getArabicNum(int num) {
+        char[] arr = {'٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'};
+        String arabic = "";
+
+        while (num > 0) {
+            arabic = arr[num % 10] + arabic;
+            num /= 10;
+        }
+
+        return arabic;
+    }
 
 }

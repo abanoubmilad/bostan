@@ -20,38 +20,6 @@ public class DisplaySection extends Activity {
     private TextView displayText;
     private int secNum;
 
-    private class FetchSectionTask extends AsyncTask<Integer, Void, String> {
-        private ProgressDialog pBar;
-
-        @Override
-        protected void onPreExecute() {
-            pBar = new ProgressDialog(DisplaySection.this);
-            pBar.setCancelable(false);
-            pBar.show();
-        }
-
-        @Override
-        protected String doInBackground(Integer... params) {
-
-            try {
-                return DB.getInstance(getApplicationContext()).getSection(
-                        params[0].intValue());
-            } catch (Exception e) {
-                return null;
-            }
-        }
-
-        @Override
-        protected void onPostExecute(String section) {
-            if (section != null)
-                displayText.setText(section);
-            else
-                Toast.makeText(getApplicationContext(), R.string.err_msg_db,
-                        Toast.LENGTH_SHORT).show();
-            pBar.dismiss();
-        }
-    }
-
     private String urlEncode(String s) {
         try {
             return URLEncoder.encode(s, "UTF-8");
@@ -172,5 +140,37 @@ public class DisplaySection extends Activity {
                 temp = displayText.getText().toString();
         }
         return temp;
+    }
+
+    private class FetchSectionTask extends AsyncTask<Integer, Void, String> {
+        private ProgressDialog pBar;
+
+        @Override
+        protected void onPreExecute() {
+            pBar = new ProgressDialog(DisplaySection.this);
+            pBar.setCancelable(false);
+            pBar.show();
+        }
+
+        @Override
+        protected String doInBackground(Integer... params) {
+
+            try {
+                return DB.getInstance(getApplicationContext()).getSection(
+                        params[0].intValue());
+            } catch (Exception e) {
+                return null;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(String section) {
+            if (section != null)
+                displayText.setText(section);
+            else
+                Toast.makeText(getApplicationContext(), R.string.err_msg_db,
+                        Toast.LENGTH_SHORT).show();
+            pBar.dismiss();
+        }
     }
 }

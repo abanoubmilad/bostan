@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -13,8 +12,36 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class Search extends Fragment{
+import androidx.fragment.app.Fragment;
+
+public class Search extends Fragment {
     private EditText et;
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View root = inflater.inflate(R.layout.frag_search, container, false);
+
+
+        et = (EditText) root.findViewById(R.id.sa_edittext);
+        TextView search = (TextView) root.findViewById(R.id.sa_iv);
+
+        search.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+                String input = et.getText().toString().trim();
+                if (input.length() < 2) {
+                    Toast.makeText(getActivity(),
+                            " قم بادخال كلمة أو جملة للبحث ", Toast.LENGTH_LONG)
+                            .show();
+                } else {
+                    new SearchTask().execute(input);
+                }
+            }
+        });
+        return root;
+    }
 
     private class SearchTask extends AsyncTask<String, Void, Boolean> {
         private ProgressDialog pBar;
@@ -48,31 +75,5 @@ public class Search extends Fragment{
                         Toast.LENGTH_LONG).show();
             pBar.dismiss();
         }
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.frag_search, container, false);
-
-
-        et = (EditText) root.findViewById(R.id.sa_edittext);
-        TextView search = (TextView) root.findViewById(R.id.sa_iv);
-
-        search.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View arg0) {
-                String input = et.getText().toString().trim();
-                if (input.length() < 2) {
-                    Toast.makeText(getActivity(),
-                            " قم بادخال كلمة أو جملة للبحث ", Toast.LENGTH_LONG)
-                            .show();
-                } else {
-                    new SearchTask().execute(input);
-                }
-            }
-        });
-return root;
     }
 }

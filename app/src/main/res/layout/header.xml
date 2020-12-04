@@ -1,13 +1,11 @@
-
-    <TextView
-        android:id="@+id/subhead"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_gravity="center_vertical"
-        android:padding="5dp"
-        android:textColor="@color/white"
-        android:textSize="@dimen/font_larger"
-        android:background="@color/colorPrimary"/>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/subhead"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical"
+    android:background="@color/colorPrimary"
+    android:gravity="center"
+    android:padding="5dp"
+    android:textColor="@color/white"
+    android:textSize="@dimen/font_med" />
 
